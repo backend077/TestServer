@@ -1,0 +1,75 @@
+.gradient-border {
+    --border-width: 3px;
+    position: relative;
+    color: white;
+    border-radius: var(--border-width);
+    
+    &::after {
+        position: absolute;
+        content: "";
+        top: calc(-1 * var(--border-width));
+        left: calc(-1 * var(--border-width));
+        z-index: -1;
+        width: calc(100% + var(--border-width) * 2);
+        height: calc(100% + var(--border-width) * 2);
+        background: linear-gradient(
+        60deg,
+        rgb(250, 250, 250),
+        rgb(250, 250, 250),
+        rgb(14, 11, 56) ,
+        rgb(250, 250, 250),
+        rgb(250, 250, 250),
+        rgb(14, 11, 56) 
+        );
+        background-size: 300% 300%;
+        background-position: 0 50%;
+        border-radius: calc(2 * var(--border-width));
+        animation: moveGradient 4s alternate infinite;
+    }
+}
+
+@keyframes moveGradient {
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+
+body {
+    --border-width: 3px;
+    position: relative;
+    color: white;
+    border-radius: var(--border-width);
+    
+
+    &::after {
+        position: absolute;
+        content: "";
+        top: calc(-1 * var(--border-width));
+        left: calc(-1 * var(--border-width));
+        z-index: -1;
+        width: calc(100% + var(--border-width) * 2);
+        height: calc(100% + var(--border-width) * 2);
+        background: linear-gradient(
+        60deg,
+        rgb(14, 11, 56),
+        rgb(2, 173, 133),
+        rgb(14, 11, 56),
+        rgb(14, 11, 56),
+        rgb(2, 173, 133),
+        rgb(14, 11, 56) 
+        );
+        background-size: 300% 300%;
+        background-position: 0 50%;
+        border-radius: calc(2 * var(--border-width));
+        animation: moveGradient 5s alternate infinite ease-in-out;
+    }
+}
+
+@keyframes moveGradient {
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+

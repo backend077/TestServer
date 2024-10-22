@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ level.level_name }} Questions</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h4 {
+            font-size: 20px;
+            margin: 20px 0 10px;
+            color: #34495e;
+        }
+
+        label {
+            font-size: 16px;
+            color: #7f8c8d;
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 30px;
+            display: block;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h4 {
+                font-size: 18px;
+            }
+
+            button {
+                font-size: 16px;
+                padding: 10px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Test nomi : {{ level.level_name }}</h1>
+    <div class="timer" id="timer">{{ duration }}</div>
+    <form method="post" action="{% url 'submit_answers' level.id %}">
+        {% csrf_token %}
+        {% for question in questions %}
+        <h4>{{ question.text }}</h4>
+        <label><input type="radio" name="question_{{ question.id }}" value="1"> {{ question.answer_1 }}</label>
+        <label><input type="radio" name="question_{{ question.id }}" value="2"> {{ question.answer_2 }}</label>
+        <label><input type="radio" name="question_{{ question.id }}" value="3"> {{ question.answer_3 }}</label>
+        <label><input type="radio" name="question_{{ question.id }}" value="4"> {{ question.answer_4 }}</label>
+        {% endfor %}
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+< <script>
+        // Set the duration for the timer
+        let duration = {{ duration }};  // Duration in seconds
+        const timerElement = document.getElementById('timer');
+
+        function startTimer() {
+            const countdown = setInterval(() => {
+                if (duration <= 0) {
+                    clearInterval(countdown);
+                    timerElement.textContent = "Berilgan vaqt tugadi";
+                     document.forms[0].submit();
+                } else {
+                    const minutes = Math.floor(duration / 60);
+                    const seconds = duration % 60;
+                    timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                    duration--;
+                }
+            }, 1000);
+        }
+        window.onload = startTimer;
+    </script>
+</body>
+</html>

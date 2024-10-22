@@ -1,0 +1,14 @@
+<div>
+    <h1>Question Level</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label for="level-select">Choose a level to delete:</label>
+        <select id="level-select" name="level_id">
+            {% for l in level %}
+                <option value="{{ l.id }}">{{ l.level_name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Delete</button>
+    </form>
+    <a href="{% url 'admin_page' %}" class="back-btn">Back to Admin Page</a>
+</div>
